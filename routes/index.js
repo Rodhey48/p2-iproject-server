@@ -3,11 +3,13 @@ const app = express()
 const router = express.Router()
 
 const ControllerUser = require('../controller/userController')
-// const ControllerMovie = require('../controller/movieController')
+const ControllerJobs = require("../controller/jobsController")
+const ControllerRequest = require("../controller/requestController")
+
 
 const {
-    authenMidleware,
-    authorMidleware
+    authenMidlewareManager,
+    authenMidlewareEmploye
 } = require('../midleware/midleware')
 
 
@@ -18,23 +20,15 @@ router.post('/register', ControllerUser.registerUser)
 router.post('/login', ControllerUser.loginUser)
 
 
-
-router.post('/jobs', )
-
-
-
-// router.use(authenMidleware)
-
-// router.get('/genre', ControllerMovie.getGenre)
-// router.get('/history', ControllerMovie.historyMovie)
-// router.use("/movies", movie)
+router.get('/manager/jobs', authenMidlewareManager, ControllerJobs.getJobsManager)
+router.post('/manager/jobs', authenMidlewareManager, ControllerJobs.postJob)
+router.put('/manager/jobs/:id', authenMidlewareManager, ControllerJobs.editJob)
+router.get('/manager/request', authenMidlewareManager, ControllerRequest.getReqManager)
 
 
-// router.get("/movies", ControllerMovie.listMovie)
-// router.post('/movies', instanceMulter.single("imageFile"), uploadToImagekit, ControllerMovie.addMovies)
-// router.get("/movies/:id", ControllerMovie.detailsMovie)
-// router.delete("/movies/:id", authorMidleware, ControllerMovie.deleteMovie)
-// router.put("/movies/:id", authorMidleware, ControllerMovie.editMovie) 
+router.get('/employe/jobs', authenMidlewareManager, ControllerJobs.getJobsEmploye)
+router.get('/employe/request', authenMidlewareEmploye, ControllerRequest.getReqEmploye)
+
 
 
 

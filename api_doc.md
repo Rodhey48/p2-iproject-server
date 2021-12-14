@@ -11,6 +11,8 @@ List of available endpoints:
 Routes below need authentication posisiton Manager:
 
 - `POST /jobs`
+- `PUT /jobs/:id`
+- `GET /Jobs`
 
 
 Routes below need authentication & authorization:
@@ -111,7 +113,7 @@ _Response (401 - Unauthorized)_
 ## 3. Post /jobs
 
 Description:
-- Fetch all heroes from database
+- Create Jobs
 
 Request:
 
@@ -122,123 +124,57 @@ Request:
 }
 ```
 
+- body:
+```json
+{
+  "name": "string",
+  "description": "string",
+  "dificulty": "string",
+  "deadline": "string",
+  "EmployeId": "string",
+  "link": "string",
+}
+```
+
 _Response (201 - OK)_
 ```json
-[
-  {
-    "id": 1,
-    "name": "Paquito",
-    "type": "Fighter",
-    "imageUrl": "https://img.mobilelegends.com/group1/M00/00/B2/Cq2IxmAKtDOAe9QQAAIoQFvuZwA933.jpg"
-  },
-  {
-    "id": 2,
-    "name": "Barats",
-    "type": "Tank",
-    "imageUrl": "https://img.mobilelegends.com/group1/M00/00/AB/Cq2Ixl-_iUCAQOs3AALNya38dwM674.jpg"
-  },
-  {
-    "id": 3,
-    "name": "Yu Zhong",
-    "type": "Fighter",
-    "imageUrl": "https://img.mobilelegends.com/group1/M00/00/A8/Cq2Ixl8MDzOAYTdJAAGJKaZhxlA426.jpg"
-  },
-  ...,
-]
-```
-
-&nbsp;
-
-## 4. POST /favourites/:heroId
-
-Description:
-- Add new favourite hero
-
-Request:
-
-- headers:
-```json
 {
-  "access_token": "string"
+    "name": "string",
+    "description": "string",
+    "dificulty": "eastringsy",
+    "deadline": "date",
+    "EmployeId": "number",
+    "authorId": 4,
+    "status": "string",
+    "progress": 0,
+    "link": "string",
 }
 ```
 
-- params:
+_Response (401 - Unauthorized)_
+
 ```json
 {
-  "heroId": "integer"
+  "message": "Forbiden to Access"
 }
 ```
 
-_Response (201 - Created)_
-```json
-{
-  "id": 1,
-  "userId": 1,
-  "heroId": 1,
-  "role": "",
-  "power": 0
-}
-```
+_Response (400 - Bad request)_
 
-_Response (404 - Not Found)_
 ```json
 {
-  "message": "Hero not found"
+    "message": "Entity is require"
 }
 ```
 
 &nbsp;
 
-## 5. GET /favourites
+## 4. PUT /jobs/:id
 
 Description:
-- Get current user favourites
+- Edit Jobs
 
 Request:
-
-- headers:
-```json
-{
-  "access_token": "string"
-}
-```
-
-_Response (200 - OK)_
-```json
-[
-  {
-    "id": 1,
-    "userId": 1,
-    "heroId": 1,
-    "role": "",
-    "power": 0,
-    "hero": {
-      "id": 1,
-      "name": "Paquito",
-      "type": "Fighter",
-      "imageUrl": "https://img.mobilelegends.com/group1/M00/00/B2/Cq2IxmAKtDOAe9QQAAIoQFvuZwA933.jpg"
-    }
-  },
-  ...,
-]
-```
-
-&nbsp;
-
-## 6. PUT /favourites/:id
-
-Description:
-- Update favourite hero
-
-Request:
-
-- headers:
-```json
-{
-  "access_token": "string"
-}
-```
 
 - params:
 ```json
@@ -247,29 +183,98 @@ Request:
 }
 ```
 
+- headers: 
+```json
+{
+  "access_token": "string"
+}
+```
+
 - body:
 ```json
 {
-  "role": "string",
-  "power": "integer"
+  "name": "string",
+  "description": "string",
+  "dificulty": "string",
+  "deadline": "string",
+  "EmployeId": "string",
+  "link": "string",
 }
 ```
 
-_Response (200 - OK)_
+_Response (201 - OK)_
 ```json
 {
-  "message": "Hero has been updated"
+    "mesage": "Job Edited"
 }
 ```
 
-_Response (404 - Not Found)_
+_Response (401 - Unauthorized)_
+
 ```json
 {
-  "message": "Hero not found"
+  "message": "Forbiden to Access"
 }
 ```
+
+
 
 &nbsp;
+
+
+
+## 5. Get /jobs
+
+Description:
+- Fetch all job from database
+
+Request:
+
+- headers: 
+```json
+{
+  "access_token": "string"
+}
+```
+
+- body:
+```json
+{
+  "name": "string",
+  "description": "string",
+  "dificulty": "string",
+  "deadline": "string",
+  "EmployeId": "string",
+  "link": "string",
+}
+```
+
+_Response (201 - OK)_
+```json
+{
+    "mesage": "Job Edited"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Forbiden to Access"
+}
+```
+
+
+&nbsp;
+
+
+
+
+
+
+
+
+
 
 ## Global Error
 

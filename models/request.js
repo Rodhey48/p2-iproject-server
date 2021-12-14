@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Request.belongsTo(models.User)
+      Request.belongsTo(models.User, {
+        foreignKey: "EmployeId"
+      })
       Request.belongsTo(models.Job)
     }
   };
@@ -82,6 +84,18 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    authorId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'AuthorId is require'
+        },
+        notNull: {
+          msg: 'AuthorId is require'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Request',

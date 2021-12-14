@@ -48,7 +48,6 @@ class ControllerUser {
             email: req.body.email,
             password: req.body.password
         }
-        console.log(input)
 
         try {
             const result = await User.findOne({
