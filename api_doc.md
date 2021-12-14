@@ -21,6 +21,8 @@ Routes below need authentication & authorization posisiton Employe:
 - `GET /employe/jobs`
 - `POST /employe/jobs/:id`
 - `GET /employe/request`
+- `PATCH /employe/jobs/status/:id`
+- `PATCH /employe/jobs/progress/:id`
 
 
 &nbsp;
@@ -455,4 +457,5 @@ _Response (500 - Internal Server Error)_
 {
   "message": "Internal server error"
 }
+- `PATCH /employe/jobs/status/:id`
 ```
