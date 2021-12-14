@@ -1,34 +1,38 @@
 const {
     verifyToken
-} = require('../helper/jwt-helper')
+} = require('../helper/jwt')
 const {
     User,
     Movie
 } = require('../models/index')
 
 
-const authenMidleware = async (req, res, next) => {
+const authenMidlewareManager = async (req, res, next) => {
     const {
         access_token
     } = req.headers
     try {
         const verify = verifyToken(access_token)
         if (!verify) throw {
-            name: 'Token not correct'
+            name: 'JsonWebTokenError'
         }
         const user = await User.findByPk(verify.id)
         if (!user) {
             throw {
-                name: 'User Not Found'
+                name: 'JsonWebTokenError'
             }
-        } else {
-            req.user = {
-                id: user.id,
-                username: user.username,
-                role: user.role
-            }
-            next()
         }
+
+        if (user.position !== "Manager") throw {
+            name: "Unauthorize"
+        }
+        req.user = {
+            id: user.id,
+            username: user.name,
+            position: user.position
+        }
+        next()
+
     } catch (err) {
         next(err)
 
@@ -36,24 +40,31 @@ const authenMidleware = async (req, res, next) => {
 
 }
 
-const authorMidleware = async (req, res, next) => {
-    const idM = req.params.id
+const authenMidlewareEmploye = async (req, res, next) => {
+    const {
+        access_token
+    } = req.headers
+
     try {
-        if (req.user.role === "Admin") {
-            next()
-        } else {
-            let movie = await Movie.findByPk(idM)
-
-            if (!movie) throw {
-                name: 'Movie Not Found'
-            }
-            if (movie.authorId === req.user.id) {
-                next()
-            } else throw {
-                name: 'Unauthorize'
-            }
-
+        const verify = verifyToken(access_token)
+        if (!verify) throw {
+            name: 'JsonWebTokenError'
         }
+        const user = await User.findByPk(verify.id)
+        if (!user) {
+            throw {
+                name: 'JsonWebTokenError'
+            }
+        }
+        if (user.position !== "Employe") throw {
+            name: "Unauthorize"
+        }
+        req.user = {
+            id: user.id,
+            username: user.name,
+            position: user.position
+        }
+        next()
 
     } catch (err) {
         next(err)
@@ -61,6 +72,8 @@ const authorMidleware = async (req, res, next) => {
     }
 
 }
+
+
 
 
 const authorAdminMidleware = async (req, res, next) => {
@@ -82,7 +95,7 @@ const authorAdminMidleware = async (req, res, next) => {
 }
 
 module.exports = {
-    authenMidleware,
-    authorMidleware,
+    authenMidlewareManager,
+    authenMidlewareEmploye,
     authorAdminMidleware
 }

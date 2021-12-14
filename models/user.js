@@ -2,6 +2,12 @@
 const {
   Model
 } = require('sequelize');
+
+const {
+  hashPassword
+} = require('../helper/bcryptjs')
+
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,8 +17,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Job)
-      User.hasMany(models.Request)
+      User.hasMany(models.Job, {
+        foreignKey: "EmployeId"
+      })
+      User.hasMany(models.Request, {
+        foreignKey: "EmployeId"
+      })
     }
   };
   User.init({
@@ -28,6 +38,18 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Password is required"
+        },
+        notEmpty: {
+          msg: "Password is required"
+        }
+      }
+    },
     position: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -37,6 +59,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         notNull: {
           msg: 'Position is require'
+        },
+        isIn: {
+          args: [
+            ['Manager', 'Employe']
+          ],
+          msg: 'Field must Manager or Employe'
         }
       }
     },
@@ -48,10 +76,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         notEmpty: {
-          msg: 'Description is require'
+          msg: 'Email is require'
         },
         notNull: {
-          msg: 'Description is require'
+          msg: 'Email is require'
         },
         isEmail: {
           msg: 'Email format is require'
@@ -63,14 +91,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: 'phoneNumber is require'
+          msg: 'PhoneNumber is require'
         },
         notNull: {
-          msg: 'phoneNumber is require'
+          msg: 'PhoneNumber is require'
         }
       }
     },
   }, {
+    hooks: {
+      beforeCreate(ins, opt) {
+        ins.password = hashPassword(ins.password)
+      }
+    },
     sequelize,
     modelName: 'User',
   });

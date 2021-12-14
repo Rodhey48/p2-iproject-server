@@ -11,12 +11,15 @@ function errorHandler(err, req, res, next) {
     } else if (err.name === "JsonWebTokenError") {
         status = 401
         message = "Invalid token"
-    } else if (err.name === "Hero not found") {
+    } else if (err.name === "Unauthorize") {
+        status = 400
+        message = "Forbiden to Access"
+    } else if (err.name === "Job Not Found") {
         status = 404
-        message = "Hero not found"
-    } else if (err.name === "Hero not found") {
-        status = 404
-        message = "Hero not found"
+        message = "Job Not Found"
+    } else if (err.name === 'Job Cant updated') {
+        status = 401
+        message = 'Job Cant updated'
     }
 
 

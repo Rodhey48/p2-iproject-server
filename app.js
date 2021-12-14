@@ -6,6 +6,8 @@ const port = process.env.PORT || 3000
 
 
 const errorHandler = require('./midleware/errorhandler')
+const index = require('./routes/index')
+
 
 
 app.use(cors())
