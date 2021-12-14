@@ -17,6 +17,9 @@ function errorHandler(err, req, res, next) {
     } else if (err.name === "Job Not Found") {
         status = 404
         message = "Job Not Found"
+    } else if (err.name === 'Job Cant updated') {
+        status = 401
+        message = 'Job Cant updated'
     }
 
 

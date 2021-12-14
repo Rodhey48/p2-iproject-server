@@ -8,16 +8,20 @@ List of available endpoints:
 - `POST /register`
 - `POST /login`
 
-Routes below need authentication posisiton Manager:
+Routes below need authentication & authorization posisiton Manager:
 
-- `POST /jobs`
-- `PUT /jobs/:id`
-- `GET /Jobs`
+- `POST /manager/jobs`
+- `PUT /manager/jobs/:id`
+- `GET /manager/Jobs`
+- `GET /manager/request`
 
 
-Routes below need authentication & authorization:
+Routes below need authentication & authorization posisiton Employe:
 
-- `PUT /favourites/:id`
+- `GET /employe/jobs`
+- `POST /employe/jobs/:id`
+- `GET /employe/request`
+
 
 &nbsp;
 
@@ -110,7 +114,7 @@ _Response (401 - Unauthorized)_
 
 &nbsp;
 
-## 3. Post /jobs
+## 3. Post /manager/jobs
 
 Description:
 - Create Jobs
@@ -169,7 +173,7 @@ _Response (400 - Bad request)_
 
 &nbsp;
 
-## 4. PUT /jobs/:id
+## 4. PUT /manager/jobs/:id
 
 Description:
 - Edit Jobs
@@ -223,7 +227,7 @@ _Response (401 - Unauthorized)_
 
 
 
-## 5. Get /jobs
+## 5. Get /manager/jobs
 
 Description:
 - Fetch all job from database
@@ -237,23 +241,13 @@ Request:
 }
 ```
 
-- body:
-```json
-{
-  "name": "string",
-  "description": "string",
-  "dificulty": "string",
-  "deadline": "string",
-  "EmployeId": "string",
-  "link": "string",
-}
-```
 
-_Response (201 - OK)_
+_Response (200 - OK)_
 ```json
-{
-    "mesage": "Job Edited"
-}
+[
+
+
+]
 ```
 
 _Response (401 - Unauthorized)_
@@ -269,9 +263,173 @@ _Response (401 - Unauthorized)_
 
 
 
+## 6. GET /manager/request
+
+Description:
+- Fetch all request from database
+
+Request:
+
+- headers: 
+```json
+{
+  "access_token": "string"
+}
+```
+
+- body:
+```json
+[
 
 
 
+
+
+]
+```
+
+_Response (200 - OK)_
+```json
+[
+
+  
+]
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Forbiden to Access"
+}
+```
+
+
+&nbsp;
+
+## 7. Get /employe/jobs
+
+Description:
+- Fetch all job from database
+
+Request:
+
+- headers: 
+```json
+{
+  "access_token": "string"
+}
+```
+
+
+_Response (200 - OK)_
+```json
+[
+   {
+        "name": "string",
+        "description": "string",
+        "dificulty": "string",
+        "deadline": "date",
+        "EmployeId": "integer",
+        "authorId": "integer",
+        "status": "string",
+        "progress": "integer",
+        "link": "string",
+    },
+    {
+        "name": "string",
+        "description": "string",
+        "dificulty": "string",
+        "deadline": "date",
+        "EmployeId": "integer",
+        "authorId": "integer",
+        "status": "string",
+        "progress": "integer",
+        "link": "string",
+    }
+    ,,,,
+
+]
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Forbiden to Access"
+}
+```
+
+
+&nbsp;
+
+## 8. POST /employe/jobs/id
+
+Description:
+- Create Request to edit Job
+
+Request:
+
+- headers: 
+```json
+{
+  "access_token": "string"
+}
+```
+
+
+_Response (201 - OK)_
+```json
+[
+   
+
+]
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Forbiden to Access"
+}
+```
+
+
+&nbsp;
+
+## 9. GET /employe/request
+
+Description:
+- fetch Request to edit Job
+
+Request:
+
+- headers: 
+```json
+{
+  "access_token": "string"
+}
+```
+
+
+_Response (200 - OK)_
+```json
+[
+   
+
+]
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Forbiden to Access"
+}
+```
+
+
+&nbsp;
 
 
 

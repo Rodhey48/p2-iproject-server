@@ -44,6 +44,7 @@ const authenMidlewareEmploye = async (req, res, next) => {
     const {
         access_token
     } = req.headers
+
     try {
         const verify = verifyToken(access_token)
         if (!verify) throw {
@@ -55,7 +56,6 @@ const authenMidlewareEmploye = async (req, res, next) => {
                 name: 'JsonWebTokenError'
             }
         }
-
         if (user.position !== "Employe") throw {
             name: "Unauthorize"
         }

@@ -26,7 +26,10 @@ router.put('/manager/jobs/:id', authenMidlewareManager, ControllerJobs.editJob)
 router.get('/manager/request', authenMidlewareManager, ControllerRequest.getReqManager)
 
 
-router.get('/employe/jobs', authenMidlewareManager, ControllerJobs.getJobsEmploye)
+router.get('/employe/jobs', authenMidlewareEmploye, ControllerJobs.getJobsEmploye)
+router.post('/employe/jobs/:id', authenMidlewareEmploye, ControllerRequest.posReqJob)
+router.patch('/employe/jobs/status/:id', authenMidlewareEmploye, ControllerRequest.editStatusJob)
+router.patch('/employe/jobs/progress/:id', authenMidlewareEmploye, ControllerRequest.editProgressJob)
 router.get('/employe/request', authenMidlewareEmploye, ControllerRequest.getReqEmploye)
 
 
