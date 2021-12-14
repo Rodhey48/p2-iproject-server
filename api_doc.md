@@ -21,6 +21,8 @@ Routes below need authentication & authorization posisiton Employe:
 - `GET /employe/jobs`
 - `POST /employe/jobs/:id`
 - `GET /employe/request`
+- `PATCH /employe/jobs/status/:id`
+- `PATCH /employe/jobs/progress/:id`
 
 
 &nbsp;
@@ -245,8 +247,23 @@ Request:
 _Response (200 - OK)_
 ```json
 [
-
-
+  {
+    "name": "string",
+    "description": "string",
+    "dificulty": "string",
+    "deadline": "string",
+    "EmployeId": "string",
+    "link": "string",
+  },
+  {
+    "name": "string",
+    "description": "string",
+    "dificulty": "string",
+    "deadline": "string",
+    "EmployeId": "string",
+    "link": "string",
+  } 
+  ,,,,,
 ]
 ```
 
@@ -277,21 +294,21 @@ Request:
 }
 ```
 
-- body:
-```json
-[
-
-
-
-
-
-]
-```
 
 _Response (200 - OK)_
 ```json
 [
-
+  {
+        "name": "string",
+        "description": "string",
+        "JobId": "integer",
+        "EmployeId": "integer",
+        "startDate":  "date",
+        "endDate": "date",
+        "status": "string",
+        "authorId": "integer"
+    }
+    ,,,
   
 ]
 ```
@@ -380,10 +397,17 @@ Request:
 
 _Response (201 - OK)_
 ```json
-[
-   
+{
+  "name": "string",
+  "description": "string",
+  "JobId": "integer",
+  "EmployeId": "integer",
+  "startDate":  "date",
+  "endDate": "date",
+  "status": "string",
+  "authorId": "integer"
 
-]
+    }
 ```
 
 _Response (401 - Unauthorized)_
@@ -415,7 +439,17 @@ Request:
 _Response (200 - OK)_
 ```json
 [
-   
+   {
+      "name": "string",
+      "description": "string",
+      "JobId": "integer",
+      "EmployeId": "integer",
+      "startDate":  "date",
+      "endDate": "date",
+      "status": "string",
+      "authorId": "integer"
+
+    }
 
 ]
 ```
@@ -431,6 +465,83 @@ _Response (401 - Unauthorized)_
 
 &nbsp;
 
+## 10. PATCH /employe/jobs/status/:id
+
+Description:
+- Update status to edit Job
+
+Request:
+
+- headers: 
+```json
+{
+  "access_token": "string"
+}
+```
+- Body : 
+```json
+{
+  "status": "String"
+}
+
+```
+
+_Response (200 - OK)_
+```json
+{
+   "message": "Status Updated"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Forbiden to Access"
+}
+```
+
+
+&nbsp;
+
+## 11. PATCH /employe/jobs/progress/:id
+
+Description:
+- Update status to edit Job
+
+Request:
+
+- headers: 
+```json
+{
+  "access_token": "string"
+}
+```
+- Body : 
+```json
+{
+  "progress": "integer"
+}
+
+```
+
+_Response (200 - OK)_
+```json
+{
+   "message": "Progress Updated"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Forbiden to Access"
+}
+```
+
+
+&nbsp;
 
 
 
@@ -455,4 +566,5 @@ _Response (500 - Internal Server Error)_
 {
   "message": "Internal server error"
 }
+
 ```
