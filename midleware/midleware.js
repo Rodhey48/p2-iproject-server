@@ -1,6 +1,6 @@
 const {
     verifyToken
-} = require('../helper/jwt-helper')
+} = require('../helper/jwt')
 const {
     User,
     Movie
